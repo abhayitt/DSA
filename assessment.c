@@ -22,17 +22,18 @@ void commonDetail(CityData cityData, const char* corporation1, const char* corpo
     strcpy(city_common, cityData.city);
     
     for (int i = 0; i < SUBURBS; i++) {
-        for (int j = 0; j <TOWNS; j++) {
-            if ((strcmp(cityData.corporations[i][j][0], corporation1) == 0 && strcmp(cityData.corporations[i][j][1], corporation2) == 0) ||
-                (strcmp(cityData.corporations[i][j][0], corporation2) == 0 && strcmp(cityData.corporations[i][j][1], corporation1) == 0)) {
-                strcpy(town_common, cityData.towns[i][j]);
-                break;
+        for (int j = 0; j < TOWNS; j++) {
+            for (int k = 0; k < CORPORATIONS - 1; k++) {
+                if ((strcmp(cityData.corporations[i][j][k], corporation1) == 0 && strcmp(cityData.corporations[i][j][k + 1], corporation2) == 0) ||
+                    (strcmp(cityData.corporations[i][j][k], corporation2) == 0 && strcmp(cityData.corporations[i][j][k + 1], corporation1) == 0)) {
+                    strcpy(suburb_common, cityData.suburbs[i]);
+                    strcpy(town_common, cityData.towns[i][j]);
+                    break;
+                }
             }
         }
-        if (strlen(town_common) > 0) {
-            break;
-        }
     }
+    
     
     
 
@@ -82,3 +83,5 @@ int main() {
 
     return 0;
 }
+
+
