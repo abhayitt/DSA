@@ -14,13 +14,37 @@ typedef struct {
 } CityData;
 
 
-void commonDetail(CityData cityData, const char* corperation1, const char* corperation2) {
+void commonDetail(CityData cityData, const char* corporation1, const char* corporation2) {
     char city_common[20] = "";
     char suburb_common[20] = "";
     char town_common[20] = "";
 
     strcpy(city_common, cityData.city);
+    
+    for (int i = 0; i < SUBURBS; i++) {
+        for (int j = 0; j <TOWNS; j++) {
+            if ((strcmp(cityData.corporations[i][j][0], corporation1) == 0 && strcmp(cityData.corporations[i][j][1], corporation2) == 0) ||
+                (strcmp(cityData.corporations[i][j][0], corporation2) == 0 && strcmp(cityData.corporations[i][j][1], corporation1) == 0)) {
+                strcpy(town_common, cityData.towns[i][j]);
+                break;
+            }
+        }
+        if (strlen(town_common) > 0) {
+            break;
+        }
+    }
+    
+    
+
+    if (strlen(town_common) > 0) {
+        printf("%s, ", town_common);
+    }
+    if (strlen(suburb_common) > 0) {
+        printf("%s, ", suburb_common);
+    }
+    printf("%s\n", city_common);
 }
+
 
 int main() {
     CityData cityData;
